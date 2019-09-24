@@ -61,11 +61,11 @@ class Alumno extends Persona
     {
         $arrayAlumnosEncontrados = array();
         foreach ($arrayAlumnos as $value) {
-            if ($value['apellido'] == $apellido) {
+            if ((strcasecmp($value['apellido'],$apellido) == 0)) {
                 array_push($arrayAlumnosEncontrados,$value);
             }
         }
-        var_dump($arrayAlumnosEncontrados);
+        return $arrayAlumnosEncontrados;
     }
 }
 ?>

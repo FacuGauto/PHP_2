@@ -41,12 +41,12 @@ if ($dato == "GET") {
     {
         if (!empty($_GET['apellido'])) 
         {
-           // var_dump($_GET);
-
             $arrayAlumno = Alumno::leer_alumnos_json($path);
-            //var_dump($arrayAlumno);
             $apellido = $_GET['apellido'];
-            Alumno::buscar_alumnos_json($arrayAlumno,$apellido);
+            $alumnosEncontrados = Alumno::buscar_alumnos_json($arrayAlumno,$apellido);
+            $respuesta = json_encode($alumnosEncontrados);
+            echo $respuesta;
+            //var_dump($alumnosEncontrados);
         }
     }
 }
