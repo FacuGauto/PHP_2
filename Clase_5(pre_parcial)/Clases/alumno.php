@@ -14,7 +14,7 @@ class Alumno extends Persona
     
     static function datos()
     {
-        return $this->nombre . "," . $this->dni . "," . $this->legajo . "," . $this->cuatrimestre;
+        //return $this->nombre . "," . $this->dni . "," . $this->legajo . "," . $this->cuatrimestre;
     }
 
     function retorna_JSON()
@@ -29,11 +29,16 @@ class Alumno extends Persona
             $file = fopen($path,"r");
             $contenido = fread($file, filesize($path));
             $json = json_decode($contenido, true);
-            array_push($json,(array) $this);
-            fclose($file);
-            $file = fopen($path,"w");
-            fwrite($file,json_encode($json));
-            echo '{"respuesta":"Alumno agregado con exito"}';
+            if (!Alumno::buscar_alumno_email($json,$this->email)) {
+                array_push($json,(array) $this);
+                fclose($file);
+                $file = fopen($path,"w");
+                fwrite($file,json_encode($json));
+                echo '{"respuesta":"Alumno agregado con exito"}';
+            }else{
+                echo '{"respuesta":"El mail ya existe en la lista de alumnos"}';
+            }
+            
         } else {
             $array_alumnos = array();
             $file = fopen($path,"w");
@@ -57,7 +62,7 @@ class Alumno extends Persona
         return $arrayAlumnos;
     }
 
-    static function buscar_alumnos_json($arrayAlumnos,$apellido)
+    static function buscar_alumnos($arrayAlumnos,$apellido)
     {
         $arrayAlumnosEncontrados = array();
         foreach ($arrayAlumnos as $value) {
@@ -66,6 +71,16 @@ class Alumno extends Persona
             }
         }
         return $arrayAlumnosEncontrados;
+    }
+
+    static function buscar_alumno_email($arrayAlumnos,$email)
+    {
+        foreach ($arrayAlumnos as $value) {
+            if ((strcasecmp($value['email'],$email) == 0)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 ?>
