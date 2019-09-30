@@ -1,8 +1,11 @@
 <?php
 include "./Clases/alumno.php";
 include "./Clases/materia.php";
+include "./Clases/inscripcion.php";
 $path_alumnos = "./lista_alumnos.json";
 $path_materias = "./lista_materias.json";
+$path_inscripcion = "./inscripciones.json";
+
 $dato = $_SERVER['REQUEST_METHOD'];
 
 if ($dato == "POST") {
@@ -68,6 +71,62 @@ if ($dato == "GET") {
                 echo '{"respuesta":"No se encontraron alumnos con ese apellido"}';
             }
         }
+    }
+    if($_GET['caso'] == "inscribirAlumno")
+    {
+        if (!empty($_GET['nombre'])) 
+        {
+            if (!empty($_GET['apellido']))
+            {
+                if (!empty($_GET['mail']))
+                {
+                    if (!empty($_GET['materia']))
+                    {
+                        if (!empty($_GET['codigo']))
+                        {
+                            $arrayMaterias = Materia::leer_materias_json($path_materias);
+                            $codigoMateria = $_GET['codigo'];
+                            $materiaEncontrada = Materia::buscar_materia($arrayMaterias,$codigoMateria);
+                            if($materiaEncontrada)
+                            {
+                                if($materiaEncontrada['cupoAlumnos']>0)
+                                {   
+                                    $nombreAlumno = $_GET['nombre'];
+                                    $apellidoAlumno = $_GET['apellido'];
+                                    $mailAlumno = $_GET['mail'];
+                                    $nombreMateria = $_GET['materia'];
+
+                                    $materia = new Materia($materiaEncontrada['nombre'],$materiaEncontrada['codigo'],$materiaEncontrada['cupoAlumnos'],$materiaEncontrada['aula']);
+
+                                    $materia->materia_restar_cupo();
+
+                                    $materia->guardar_materia_json($path_materias);
+
+                                    $inscripcion = new Inscripcion($nombreAlumno,$apellidoAlumno,$mailAlumno,$nombreMateria,$codigoMateria);
+                                    $inscripcion->guardar_inscripcion($path_inscripcion);
+                                    
+                                }
+                                else
+                                {
+                                    echo '{"respuesta":"La materia no tiene cupo"}';
+                                }
+                            }
+                            else
+                            {
+                                echo '{"respuesta":"la materia no existe"}';
+                            }
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if($_GET['caso'] == "inscripciones")
+    {
+        $arrayInscripciones = Inscripcion::leer_inscripciones_json($path_inscripcion);
+        echo json_encode($arrayInscripciones);
+        Inscripcion::filtrar_inscripciones($arrayInscripciones,$_GET['apellido']);
     }
 }
 

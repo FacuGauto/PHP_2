@@ -21,20 +21,64 @@ class Materia
         {
             $file = fopen($path,"r");
             $contenido = fread($file, filesize($path));
-            $json = json_decode($contenido, true);
-            array_push($json,(array) $this);
             fclose($file);
+            $json = json_decode($contenido, true);
+            if(Materia::buscar_materia($json,$this->codigo))
+            {
+                foreach ($json as $key => $value) {
+                    if ($value['codigo'] === $this->codigo) {
+                        $json[$key]['nombre'] = $this->nombre;
+                        $json[$key]['cupoAlumnos'] = $this->cupoAlumnos;
+                        $json[$key]['aula'] = $this->aula;
+                    }
+                }
+                //echo '{"respuesta":"Materia editada con exito"}';
+            }
+            else
+            {
+                array_push($json,(array) $this);  
+                echo '{"respuesta":"Materia agregada con exito"}';
+            }
             $file = fopen($path,"w");
             fwrite($file,json_encode($json));
-            echo '{"respuesta":"Materia agregada con exito"}';
-        } else {
+        }
+        else
+        {
             $array_materias = array();
             $file = fopen($path,"w");
             array_push($array_materias,(array) $this);
             fwrite($file,json_encode($array_materias));
             echo '{"respuesta":"Materia agregado con exito"}';
         }
-        fclose($file);
+       fclose($file);
+    }
+
+    static function leer_materias_json($path)
+    {
+        $arrayMaterias = array();
+        if(file_exists($path))
+        {
+            $file = fopen($path,"r");
+            $contenido = fread($file, filesize($path));
+            $arrayMaterias = json_decode($contenido, true);
+            fclose($file);
+        }
+        return $arrayMaterias;
+    }
+
+    static function buscar_materia($arrayMaterias,$codigo)
+    {
+        foreach ($arrayMaterias as $value) {
+            if ($value['codigo'] === $codigo) {
+                return $value;
+            }
+        }
+        return "";
+    }
+
+    function materia_restar_cupo()
+    {
+        $this->cupoAlumnos -= 1;
     }
 }
 ?>

@@ -11,16 +11,6 @@ class Alumno extends Persona
         $this->email = $email;
         $this->foto = $foto;
     }
-    
-    static function datos()
-    {
-        //return $this->nombre . "," . $this->dni . "," . $this->legajo . "," . $this->cuatrimestre;
-    }
-
-    function retorna_JSON()
-    {
-        return json_encode($this);
-    }
 
     function guardar_alumno_json($path)
     {
@@ -28,10 +18,10 @@ class Alumno extends Persona
         {
             $file = fopen($path,"r");
             $contenido = fread($file, filesize($path));
+            fclose($file);
             $json = json_decode($contenido, true);
             if (!Alumno::buscar_alumno_email($json,$this->email)) {
                 array_push($json,(array) $this);
-                fclose($file);
                 $file = fopen($path,"w");
                 fwrite($file,json_encode($json));
                 echo '{"respuesta":"Alumno agregado con exito"}';
@@ -76,7 +66,7 @@ class Alumno extends Persona
     static function buscar_alumno_email($arrayAlumnos,$email)
     {
         foreach ($arrayAlumnos as $value) {
-            if ((strcasecmp($value['email'],$email) == 0)) {
+            if ((strcasecmp($value['mailAlumno'],$email) == 0)) {
                 return true;
             }
         }
