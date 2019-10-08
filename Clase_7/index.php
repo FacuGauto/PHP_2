@@ -17,7 +17,7 @@ $app->post('/usuario[/]', function(Request $request, Response $response){
 	echo " post ";
 });
 */
-$app->group('/alumno', function () {
+$app->group('/alumno$path', function () {//path va en el index
  
 	/*$this->get('[/]', function($request,$response,$args){
 		echo "GEEEEEEt";
