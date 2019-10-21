@@ -1,13 +1,16 @@
 <?php
-include "./Clases/alumno.php";
-$path_alumnos = "./lista_alumnos.json";
+//include "alumno.php";
+
 
 class AlumnoApi {
 
-    function listar_alumnos(){
-        echo "DAADADADAAAA";
-        //$arrayAlumnos = Alumno::leer_alumnos_json($path_alumnos);
+  //  public $path_alumnos = "./lista_alumnos.json";
 
+    function traerTodos(){
+        echo "DAADADADAAAA";
+     //   var_dump($path_alumnos);
+        $arrayAlumnos = Alumno::leer_alumnos_json($path_alumnos);
+        var_dump($arrayAlumnos);
     }
 
     /*$arrayAlumnos = AlumnoApi::leer_alumnos_json($path_alumnos);

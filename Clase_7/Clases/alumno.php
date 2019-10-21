@@ -4,12 +4,20 @@ class Alumno extends Persona
 {
     public $email;
     public $foto;
-      
+     
     function __construct($nombre,$apellido,$email,$foto)
     {
         parent::__construct($nombre,$apellido);
         $this->email = $email;
         $this->foto = $foto;
+    }
+
+    public function TraerTodos($request, $response, $args) {
+        echo "FUNCION ALUMNO";
+        /*echo "sfsfsgsfsf";
+      	$todosLosCds=cd::TraerTodoLosCds();
+     	$newResponse = $response->withJson($todosLosCds, 200);  
+    	return $newResponse;*/
     }
 
     function guardar_alumno_json($path)
