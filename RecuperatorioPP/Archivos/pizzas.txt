@@ -1,0 +1,2 @@
+{"id":15,"precio":"20","tipo":"piedra","cantidad":"2","sabor":"muzza","imagen":".\/images\/pizzas\/15-imagen.jpg","foto":".\/images\/pizzas\/15-foto.jpg"}
+{"id":16,"precio":"20","tipo":"molde","cantidad":"2","sabor":"muzza","imagen":".\/images\/pizzas\/16-imagen.jpg","foto":".\/images\/pizzas\/16-foto.jpg"}
