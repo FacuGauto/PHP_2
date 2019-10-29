@@ -1,1 +1,2 @@
 composer require slim/slim "^3.12"
+https://github.com/Z-Team-Pro/Restful-API-With-Slim/tree/master/vendor/firebase/php-jwt
