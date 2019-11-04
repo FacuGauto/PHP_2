@@ -9,3 +9,11 @@
 {"ruta":"alumnos\/","metodo":"GET","hora":"02:03:44"}
 {"ruta":"alumnos\/","metodo":"GET","hora":"02:04:21"}
 {"ruta":"alumnos\/","metodo":"GET","hora":"02:05:38"}
+{"ruta":"\/","metodo":"GET","hora":"01:54:01"}
+{"ruta":"\/","metodo":"GET","hora":"01:54:30"}
+{"ruta":"\/","metodo":"POST","hora":"01:54:39"}
+{"ruta":"alumnos\/","metodo":"POST","hora":"01:54:50"}
+{"ruta":"alumnos\/","metodo":"GET","hora":"03:10:31"}
+{"ruta":"alumnos\/","metodo":"GET","hora":"03:36:05"}
+{"ruta":"alumnos\/","metodo":"GET","hora":"03:36:30"}
+{"ruta":"alumnos\/","metodo":"GET","hora":"03:36:49"}

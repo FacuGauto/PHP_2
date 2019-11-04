@@ -28,10 +28,10 @@ function addLog($metodo, $ruta){
 }
 
 $mid1 = function($req, $response, $next){
-    $response->getBody()->write(" MID Antes ");
+    //$response->getBody()->write(" MID Antes ");
     addLog($req->getMethod(), $req->getUri()->getPath());
     $response = $next($req, $response);
-    $response->getBody()->write(" MID Despues ");
+    //$response->getBody()->write(" MID Despues ");
     return $response;
 };
 
@@ -44,21 +44,23 @@ $app->add($mid1);
 
 $app->group('/alumnos', function(){
     $this->get('/', function($request, $response){
-        $response->getBody()->write("GET");
+        //$response->getBody()->write("GET");
+        $time = time();
         $key = "example_key";
         $token = array(
-            "iss" => "http://example.org",
-            "aud" => "http://example.com",
-            "iat" => 1356999524,
-            "nbf" => 1357000000
+            "iat" => $time,
+            "exp" => $time + (60*60),
+            "data" => [
+                "id" => 1,
+                "name" => "Pedro"
+            ]
         );
-
-$jwt = JWT::encode($token, $key);
-$decoded = JWT::decode($jwt, $key, array('HS256'));
-        var_dump($decoded);
-        $decoded_array = (array) $decoded;
-        $decoded = JWT::decode($jwt, $key, array('HS256'));
-        var_dump($decoded);
+        $jwt = JWT::encode($token, $key);
+        $data = JWT::decode($jwt, $key, array('HS256'));
+        var_dump($data);
+        //$decoded_array = (array) $decoded;
+        //$decoded = JWT::decode($jwt, $key, array('HS256'));
+        //var_dump($decoded);
     });
     $this->post('/', function($request, $response){
         $response->getBody()->write("POST");
