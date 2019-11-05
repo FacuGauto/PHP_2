@@ -4,3 +4,4 @@ composer require firebase/php-jwt
 https://anexsoft.com/implementacion-de-json-web-token-con-php
 composer start
 http://localhost:8080/
+http://localhost:8080/cdORM/
