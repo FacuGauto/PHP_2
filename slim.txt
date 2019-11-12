@@ -5,3 +5,9 @@ https://anexsoft.com/implementacion-de-json-web-token-con-php
 composer start
 http://localhost:8080/
 http://localhost:8080/cdORM/
+composer start
+http://localhost:8080/
+http://localhost:8080/cdORM/
+https://github.com/akrabat/slim3-skeleton
+http://localhost:8080/usuario/ --> post
+http://localhost:8080/usuario/ --> get
